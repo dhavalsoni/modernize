@@ -1,0 +1,154 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mordernize</title>
+  <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+  <div class="main-bg">
+    <header>
+      <img src="images/Logo.png" alt="Main logo">
+    </header>
+    <section class="form-wrapper">
+      <div class="form-section">
+        <div class="form-header">
+          <h3>Enter to win a 3rd generation Nest<br>Learning Thermostat worth $249.</h3>
+        </div>
+        <div class="form-body">
+          <form id="contactForm" novalidate>
+            <input type="text" placeholder="Name" id="name" required>
+            <div class="city-state d-flex justify-content-between flex-wrap">
+              <div class="city">
+                <input type="text" placeholder="City" id="city" name="city" >
+              </div>
+              <div class="state">
+                <input type="text" placeholder="State" id="state">
+              </div>
+            </div>
+            <input type="text" id="phone" placeholder="(XXX) XXX-XXXX" required>
+            <input type="email"  id="email" placeholder="Email Address" required>
+            <button type="submit" id="submitBtn">Submit</button>
+            <!-- <input type="submit" value="ENTER TO WIN"> -->
+          </form>
+        </div>
+      </div>
+      <div class="advertise-wrapper">
+        <div class="advertise position-relative">
+          <div class="ad-title position-absolute">
+            <h4>EVEN MORE SAVINGS</h4>
+          </div>
+          <div class="info-block">
+            <h5>ADVERTORIAL</h5>
+            <h2>Tricks Homeowners Use to Eliminate Bills</h2>
+            <p>Surging energy bills, unpredictable weather patterns and dissatisfaction with utility companies have homeowners scrambling… </p>
+            <a href="https://www.google.com/" target="_blank">READ MORE</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+ 
+
+<!-- JavaScript Phone Mask -->
+<script>
+  const form = document.getElementById('contactForm');
+  const phoneInput = document.getElementById('phone');
+  const submitBtn = document.getElementById('submitBtn');
+  let submitted = false;
+
+  // Phone mask
+  phoneInput.addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '').substring(0, 10);
+    const area = value.substring(0, 3);
+    const middle = value.substring(3, 6);
+    const last = value.substring(6, 10);
+
+    if (value.length > 6) {
+      e.target.value = `(${area}) ${middle}-${last}`;
+    } else if (value.length > 3) {
+      e.target.value = `(${area}) ${middle}`;
+    } else if (value.length > 0) {
+      e.target.value = `(${area}`;
+    }
+  });
+
+  // Validation helper
+  
+
+  function isNameValid(value) {
+    return value.trim().length >= 2;
+  }
+
+  function isPhoneValid(value) {
+    return /^\(\d{3}\) \d{3}-\d{4}$/.test(value);
+  }
+
+  function isEmailValid(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function validateField(input, validatorFn) {
+    const valid = validatorFn(input.value);
+    input.classList.toggle('error', !valid);
+    return valid;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (submitted) return;
+
+    const name = document.getElementById('name');
+    const city = document.getElementById('city');
+    const state = document.getElementById('state');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+
+    const valid =
+      validateField(name, isNameValid) &
+      validateField(phone, isPhoneValid) &
+      validateField(email, isEmailValid);
+
+    if (!valid) return;
+
+    const formData = {
+      name: name.value,
+      city: city.value,
+      state: state.value,
+      phone: phone.value,
+      email: email.value,
+    };
+
+    function validateField(input, validatorFn) {
+      const valid = validatorFn(input.value);
+      input.classList.toggle('error', !valid);
+      return valid;
+    }
+    
+    console.log("Form data:", formData);
+
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    // Submit via AJAX
+    fetch('https://formsws-hilstaging-com-0adj9wt8gzyq.runscope.net/solar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData),      
+    }).finally(() => {
+      submitBtn.textContent = 'Submitted';
+    submitted = true;    
+    });
+  });
+</script>
+
+  
+
+
+
+</body>
+</html>
