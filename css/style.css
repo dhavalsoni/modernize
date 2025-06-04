@@ -34,7 +34,7 @@
 
 /* HTML & Body */
 html, body {
-  width: 100%;
+  width: 100%;  
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-family: var(--font-family-base);
@@ -169,34 +169,10 @@ input[type="submit"]:disabled {
   -webkit-backface-visibility: hidden;
 }
 
-.main {
-  background: url('../images/texture-bg.png') repeat top 82px center;
+.body-bg {
+  background: url('../images/mainbg.png') repeat top 82px center;
 }
 
-.main-bg {
-    animation: backgroundPulse 5s infinite alternate;
-    /* animation: backgroundPulse 2s infinite alternate; */
-}
-  
-@keyframes backgroundPulse {
-    0% {
-      background-color: #ECF8FB;
-    }
-    100% {
-      background-color: #EFEFEF;
-    }
-}
-
-/* @keyframes backgroundPulse {
-    0% {
-      background-color: red;
-    }
-    100% {
-      background-color: green;
-    }
-} */
-
-/* Header */
 header {
   width: 100%;
   padding: 22px var(--spacing-md) 21px;
@@ -209,14 +185,42 @@ header img {
   vertical-align: top;
 }
 
+.main {
+    padding-top:34px;
+    background: linear-gradient(to bottom, white 0%, transparent 15%);
+}
+
+.animated-bg {
+    animation: backgroundPulse 5s infinite alternate !important;
+}
+
+.main-bg {
+    padding-top:34px;  
+    
+}
+  
+@keyframes backgroundPulse {
+    0% {
+      background-color: #ECF8FB;
+    }
+    100% {
+      background-color: #EFEFEF;
+    }
+}
+
+
+.container {
+    max-width: 670px;
+    margin: 0 auto;
+}
+
 /* Form Layout */
 .form-wrapper {
-  padding: 0 var(--spacing-md) 92px;
+  padding-bottom: 31px;
 }
 
 .form-section {
-  max-width: 670px;
-  margin: var(--spacing-lg) auto 31px;
+  margin-bottom: 31px;
   background-color: var(--color-light);
 }
 
@@ -330,11 +334,12 @@ input.error {
 
 /* Responsive */
 @media screen and (max-width: 767px) {
+
   .city, .state {
     width: 100%;
   }
 
-  .form-body {
+  .container, .form-body {
     padding-left: var(--spacing-md);
     padding-right: var(--spacing-md);
   }
@@ -343,8 +348,5 @@ input.error {
     display: none;
   }
 
-  .form-wrapper {
-    padding-bottom: 60px;
-  }
 }
 
